@@ -21,13 +21,13 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 public class RoomController {
 
     private final RoomService service;
-    private final Executor pool;
+    private final Executor threadPool;
 
     private final RoomMapper mapper;
 
-    public RoomController(RoomService service, Executor pool, RoomMapper roomMapper) {
+    public RoomController(RoomService service, Executor threadPool, RoomMapper roomMapper) {
         this.service = service;
-        this.pool = pool;
+        this.threadPool = threadPool;
         this.mapper = roomMapper;
     }
 
@@ -35,7 +35,7 @@ public class RoomController {
     @ResponseStatus(HttpStatus.CREATED)
     public CompletableFuture<RoomResponse> save(@Valid @RequestBody RoomInput input) {
         return supplyAsync(() ->
-                service.save(mapper.toEntity(input)), pool)
+                service.save(mapper.toEntity(input)), threadPool)
                 .thenApply(mapper::toResponseModel);
     }
 
@@ -43,14 +43,14 @@ public class RoomController {
     @ResponseStatus(HttpStatus.OK)
     public CompletableFuture<RoomResponse> getById(@PathVariable @NotNull @Positive Long id) {
         return supplyAsync(() ->
-                service.findById(id), pool)
+                service.findById(id), threadPool)
                 .thenApply(mapper::toResponseModel);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CompletableFuture<Collection<RoomResponse>> getAll() {
-        return supplyAsync(service::findAll)
+        return supplyAsync(service::findAll, threadPool)
                 .thenApply(mapper::toResponseModelCollection);
     }
 

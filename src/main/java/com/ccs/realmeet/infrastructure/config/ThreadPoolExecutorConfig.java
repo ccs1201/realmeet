@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class ThreadPoolExecutorConfig {
 
-    @Bean("pool")
+    @Bean("threadPool")
     public Executor controllersExecutor(
             @Value("${realmeet.threadpoolexecutorconfig.corePoolSize:10}") int corePoolSize,
             @Value("${realmeet.threadpoolexecutorconfig.maxPoolSize:20}") int maxPoolSize,
