@@ -42,7 +42,7 @@ public class AllocationController {
 
     @GetMapping("/{allocationId}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Busca uma Alocação pelo ID")
+    @Operation(description = "Busca uma Alocação pelo ID", operationId = "operation id", method = "metodo",summary = "sumario")
     public CompletableFuture<AllocationResponse> getById(@PathVariable @Positive Long allocationId) {
         return supplyAsync(() ->
                 service.findByID(allocationId))

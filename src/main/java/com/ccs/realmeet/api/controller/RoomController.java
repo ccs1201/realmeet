@@ -50,6 +50,7 @@ public class RoomController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CompletableFuture<Collection<RoomResponse>> getAll() {
+
         return supplyAsync(service::findAll, threadPool)
                 .thenApply(mapper::toResponseModelCollection);
     }

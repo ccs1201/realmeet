@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.concurrent.RejectedExecutionException;
+
 @RestControllerAdvice
 public class RealmeetExceptionHandler extends BaseExceptionHandler {
 

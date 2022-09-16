@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @Configuration
 public class ThreadPoolExecutorConfig {
+
 
     @Bean("threadPool")
     public Executor controllersExecutor(
@@ -19,7 +17,8 @@ public class ThreadPoolExecutorConfig {
             @Value("${realmeet.threadpoolexecutorconfig.queueCapacity:50}") int queueCapacity,
             @Value("${realmeet.threadpoolexecutorconfig.keepAliveSeconds:60}") int keepAliveSeconds) {
 
-        return new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveSeconds,
-                TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueCapacity, true));
+        return ForkJoinPool.commonPool();
+//        return new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveSeconds,
+//                TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueCapacity, true));
     }
 }
