@@ -51,7 +51,7 @@ public class AllocationController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Retorna uma coleção de alocações")
+    @Operation(description = "Retorna todas as alocações")
     public CompletableFuture<Collection<AllocationResponse>> getAll() {
         return supplyAsync(service::findAll)
                 .thenApplyAsync(mapper::toResponseModelCollection);
