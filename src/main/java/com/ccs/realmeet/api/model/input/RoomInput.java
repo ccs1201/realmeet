@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class RoomInput {
 
     @NotBlank
-    @Size(max = 2)
+    @Size(max = 20)
     private String name;
     @Positive
     private int seats;

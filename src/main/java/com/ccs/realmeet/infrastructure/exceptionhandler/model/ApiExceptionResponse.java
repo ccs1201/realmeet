@@ -85,5 +85,7 @@ public class ApiExceptionResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Collection<FieldValidationError> details;
 
+
+
 }
 

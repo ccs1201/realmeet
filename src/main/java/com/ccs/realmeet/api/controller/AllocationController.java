@@ -5,6 +5,7 @@ import com.ccs.realmeet.api.model.response.AllocationResponse;
 import com.ccs.realmeet.domain.service.AllocationService;
 import com.ccs.realmeet.infrastructure.mapper.AllocationMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,18 +19,12 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @RestController
 @RequestMapping("/allocations")
+@RequiredArgsConstructor
 public class AllocationController {
-
 
     private final Executor threadPool;
     private final AllocationService service;
     private final AllocationMapper mapper;
-
-    public AllocationController(Executor threadPool, AllocationService service, AllocationMapper mapper) {
-        this.threadPool = threadPool;
-        this.service = service;
-        this.mapper = mapper;
-    }
 
     @PostMapping("/{roomId}")
     @ResponseStatus(HttpStatus.CREATED)
@@ -42,7 +37,7 @@ public class AllocationController {
 
     @GetMapping("/{allocationId}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(description = "Busca uma Alocação pelo ID", operationId = "operation id", method = "metodo",summary = "sumario")
+    @Operation(description = "Busca uma Alocação pelo ID", operationId = "operation id", method = "metodo", summary = "sumario")
     public CompletableFuture<AllocationResponse> getById(@PathVariable @Positive Long allocationId) {
         return supplyAsync(() ->
                 service.findByID(allocationId))
